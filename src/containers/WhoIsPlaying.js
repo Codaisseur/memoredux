@@ -48,12 +48,12 @@ class WhoIsPlaying extends Component {
     const { players } = this.props
 
     return (
-      <div style={{ border: '1px solid #f00'}}>
+      <div>
         <h2>Who's Playing?</h2>
         { players.map(this.renderPlayer.bind(this)) }
         { this.renderEmptyPlayer() }
         <div>
-          <button onClick={ this.startGame.bind(this) }>Start Playing</button>
+          <button onClick={ this.startGame.bind(this) } disabled={ players.length < 2 }>Start Playing</button>
         </div>
       </div>
     )

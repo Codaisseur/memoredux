@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { GridList } from 'material-ui/GridList';
+import flipCard from '../actions/flip-card'
 import Card from '../components/card'
 
 const styles = {
@@ -22,8 +23,14 @@ class Game extends Component {
   renderCard(card, index) {
     return (
       <Card key={ index }
+        flipCard={ this.tryFlipCard.bind(this) }
         index={ index } { ...card } />
       )
+  }
+
+  tryFlipCard(index) {
+    if (this.props.pairFlipped) return
+    this.props.flipCard(index)
   }
 
   render() {
@@ -52,6 +59,7 @@ Game.propTypes = {
   flippedCards: PropTypes.array.isRequired,
   canFlip: PropTypes.bool.isRequired,
   pairFlipped: PropTypes.bool.isRequired,
+  flipCard: PropTypes.func.isRequired,
 }
 
-export default connect(mapStateToProps, {})(Game)
+export default connect(mapStateToProps, { flipCard })(Game)

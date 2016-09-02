@@ -17,7 +17,8 @@ const style = {
 
 class Card extends Component {
   flipMe() {
-    console.log("Who's flippin'?")
+    const { flipCard, index } = this.props
+    flipCard(index)
   }
 
   render() {
@@ -37,6 +38,7 @@ Card.propTypes = {
   index: PropTypes.number.isRequired,
   flipped: PropTypes.bool.isRequired,
   symbol: PropTypes.string.isRequired,
+  flipCard: PropTypes.func.isRequired,
 }
 
 export default Card
