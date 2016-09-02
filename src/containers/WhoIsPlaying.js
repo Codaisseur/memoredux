@@ -39,6 +39,11 @@ class WhoIsPlaying extends Component {
     return this.renderPlayer({}, players.length)
   }
 
+  startGame() {
+    const { players, startPlaying } = this.props
+    if (players.length > 1) startPlaying()
+  }
+
   render() {
     const { players } = this.props
 
@@ -48,7 +53,7 @@ class WhoIsPlaying extends Component {
         { players.map(this.renderPlayer.bind(this)) }
         { this.renderEmptyPlayer() }
         <div>
-          <button>Start Playing</button>
+          <button onClick={ this.startGame.bind(this) }>Start Playing</button>
         </div>
       </div>
     )
@@ -65,6 +70,7 @@ WhoIsPlaying.propTypes = {
   players: PropTypes.array.isRequired,
   addPlayer: PropTypes.func.isRequired,
   updatePlayer: PropTypes.func.isRequired,
+  startPlaying: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, { addPlayer, updatePlayer })(WhoIsPlaying)

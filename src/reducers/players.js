@@ -17,19 +17,3 @@ export default function updatePlayers( state = [], { type, payload } ) {
       return state
   }
 }
-
-// {
-//   players: [
-//     {
-//       name: "",
-//       color: "",
-//       pairs: []
-//     }
-//   ],
-//   cards: [
-//     {
-//       symbol: "",
-//       flipped: false
-//     }
-//   ],
-// }

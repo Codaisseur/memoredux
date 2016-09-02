@@ -2,10 +2,11 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 // Actions
-
+import createGame from './actions/create-game'
 
 // Components
 import WhoIsPlaying from './containers/WhoIsPlaying'
+import Game from './containers/Game'
 
 // Material UI Components
 import mui from 'material-ui';
@@ -27,12 +28,26 @@ const muiTheme = getMuiTheme({
 });
 
 class App extends Component {
+  newGame() {
+    this.props.createGame()
+  }
+
+  renderGame() {
+    const { gameStarted, cards, players } = this.props
+    if (!gameStarted) return <WhoIsPlaying startPlaying={ this.newGame.bind(this) } />
+    return (
+      <div>
+        <Game cards={ cards } />
+      </div>
+    )
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <h1>Memory</h1>
-          <WhoIsPlaying />
+          { this.renderGame() }
         </div>
       </MuiThemeProvider>
     )
@@ -40,9 +55,15 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    cards: state.cards,
+    gameStarted: (state.cards.length > 0),
+  }
 }
 
-App.propTypes = {}
+App.propTypes = {
+  createGame: PropTypes.func.isRequired,
+  cards: PropTypes.array.isRequired,
+}
 
-export default connect(mapStateToProps, {})(App)
+export default connect(mapStateToProps, { createGame })(App)
